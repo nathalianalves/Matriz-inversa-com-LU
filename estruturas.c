@@ -42,7 +42,7 @@ void clearArray(double *arr, unsigned int n) {
 void printMatrix(double **matrix, unsigned int rows, unsigned int columns) {
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < columns; j++)
-      printf("%.4f ", matrix[i][j]);
+      printf("%.15e ", matrix[i][j]);
     printf("\n");
   }
 }
@@ -57,4 +57,10 @@ void initializeIdentityMatrix(double **matrix, unsigned int n) {
         matrix[i][j] = 0.0;
     }
   }
+}
+
+void readMatrix(double **matrix, unsigned int rows, unsigned int columns) {
+  for (unsigned int i = 0; i < rows; i++)
+    for (unsigned int j = 0; j < columns; j++)
+      scanf("%le", &matrix[i][j]);
 }

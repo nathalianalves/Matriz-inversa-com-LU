@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <fenv.h>
 #include "LU.h"
 
 int main() {
-  unsigned int n = 3;
+  unsigned int n;
   double **A, **inverse;
+
+  fesetround(FE_DOWNWARD);
+  scanf("%d\n", &n);
 
   A = allocateMatrix(n, n);
   inverse = allocateMatrix(n, n);
@@ -13,19 +17,12 @@ int main() {
     return -1;
   }
 
-  A[0][0] = 25;
-  A[0][1] = 5;
-  A[0][2] = 1;
-  A[1][0] = 64;
-  A[1][1] = 8;
-  A[1][2] = 1;
-  A[2][0] = 144;
-  A[2][1] = 12;
-  A[2][2] = 1;
+  readMatrix(A, n, n);
 
   if (!invertMatrix(A, inverse, n))
     return -1;
 
+  printf("\n%d\n", n);
   printMatrix(inverse, n, n);
 
   freeMatrix(A, n, n);

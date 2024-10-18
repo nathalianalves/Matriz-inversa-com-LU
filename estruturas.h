@@ -22,4 +22,7 @@ void printMatrix(double **matrix, unsigned int rows, unsigned int columns);
 // Preenche uma matriz identidade
 void initializeIdentityMatrix(double **matrix, unsigned int n);
 
+// Lê uma matriz
+void readMatrix(double **matrix, unsigned int rows, unsigned int columns);
+
 #endif

@@ -5,7 +5,7 @@
 #include "estruturas.h"
 
 // Decompoe uma matriz A nas matrizes L e U, em que L armazena os multiplicadores e U armazena o resultado da matriz A após eliminação de Gauss
-void decomposeLU(double **A, double **L, double **U, unsigned int n);
+void decomposeLU(double **A, double **L, double **U, unsigned int *swaps, unsigned int n);
 
 /* Resolve um sistema Ax = b, em que os parâmetros são: 
   - L e U: decomposição de A
