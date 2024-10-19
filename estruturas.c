@@ -64,3 +64,22 @@ void readMatrix(double **matrix, unsigned int rows, unsigned int columns) {
     for (unsigned int j = 0; j < columns; j++)
       scanf("%le", &matrix[i][j]);
 }
+
+void multiplyMatrices(double **A, double **B, double **result, unsigned int n) {
+  for (unsigned int i = 0; i < n; i++) {
+    for (unsigned int j = 0; j < n; j++) {
+      result[i][j] = 0; // Inicializa a matriz resultado
+      for (unsigned int k = 0; k < n; k++) {
+        result[i][j] += A[i][k] * B[k][j];
+      }
+    }
+  }
+}
+
+void subtractMatrices(double **A, double **B, double **result, unsigned int n) {
+  for (unsigned int i = 0; i < n; i++) {
+    for (unsigned int j = 0; j < n; j++) {
+      result[i][j] = A[i][j] - B[i][j];
+    }
+  }
+}

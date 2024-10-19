@@ -25,4 +25,7 @@ void initializeIdentityMatrix(double **matrix, unsigned int n);
 // Lê uma matriz
 void readMatrix(double **matrix, unsigned int rows, unsigned int columns);
 
+void multiplyMatrices(double **A, double **B, double **result, unsigned int n);
+
+void subtractMatrices(double **A, double **B, double **result, unsigned int n);
 #endif

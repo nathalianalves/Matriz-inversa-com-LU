@@ -154,3 +154,56 @@ int invertMatrix(double **A, double **inverse, unsigned int n) {
 
   return 1;
 }
+
+int calculateResidual(double **A, double **inverse, double **residual, unsigned int n) {
+  double **identity;
+
+  identity = allocateMatrix(n, n);
+  if (!identity) {
+    printf("Não foi possível alocar memória.\n");
+    return 0;
+  }
+
+  initializeIdentityMatrix(identity, n);
+
+  multiplyMatrices(A, inverse, residual, n);
+  subtractMatrices(residual, identity, residual, n);
+
+  // Desalocar a matriz identidade após o uso
+  freeMatrix(identity, n, n);
+
+  return 1;
+}
+
+double columnNorm(double *residual, unsigned int n) {
+  double sum = 0.0;
+
+  for (unsigned int i = 0; i < n; i++) {
+    sum += residual[i] * residual[i];
+  }
+
+  return sqrt(sum);
+}
+
+double averageNorms(double **residual, unsigned int n) {
+  double *column, average, sum = 0.0;
+
+  column = (double*) malloc(sizeof(double) * n);
+  if (!column) {
+    printf("Falha ao alocar memória.\n");
+    return 0;
+  }
+
+  for (unsigned int j = 0; j < n; j++) {
+    // Copia a coluna j da matriz residual
+    for (unsigned int i = 0; i < n; i++)
+      column[i] = residual[i][j];
+
+    // Soma a norma da coluna
+    sum += columnNorm(column, n);
+  }
+
+  free(column);
+
+  return sum / n;
+}
