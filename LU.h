@@ -1,3 +1,6 @@
+/*  Biblioteca de funções relacionadas à fatoração LU e cálculo de resíduos
+    Nathália Nogueira Alves - GRR20232349 - UFPR*/
+
 #ifndef _LU_
 #define _LU_
 
@@ -22,8 +25,7 @@ int invertMatrix(double **A, double **inverse, unsigned int n);
 // Calcula R = A * A' - I e guarda em residual
 int calculateResidual(double **A, double **inverse, double **residual, unsigned int n);
 
-double columnNorm(double *residual, unsigned int n);
-
+// Calcula a média das normas de cada coluna da matriz residual
 double averageNorms(double **residual, unsigned int n);
 
 #endif

@@ -1,3 +1,6 @@
+/*  Implementação de funções relacionadas à fatoração LU e cálculo de resíduos
+    Nathália Nogueira Alves - GRR20232349 - UFPR*/
+
 #include "LU.h"
 
 // Encontra e retorna o indice da linha que contem o pivo
@@ -17,10 +20,12 @@ void swapRows(double **A, unsigned int *swaps, unsigned int row1, unsigned int r
   double *tempRow;
   unsigned int temp;
 
+  // Troca as linhas row1 e row2 na matriz A
   tempRow = A[row1];
   A[row1] = A[row2];
   A[row2] = tempRow;
 
+  // Troca swaps[row1] e swaps[row2]
   temp = swaps[row1];
   swaps[row1] = swaps[row2];
   swaps[row2] = temp;
@@ -30,9 +35,11 @@ void swapRows(double **A, unsigned int *swaps, unsigned int row1, unsigned int r
 void applySwapsToB(double *b, unsigned int *swaps, unsigned int n) {
   double temp[n];
 
+  // Copia o vetor b original para temp
   for (unsigned int i = 0; i < n; i++)
     temp[i] = b[i];
 
+  // Aplica as mudanças feitas na matriz U (e, consequentemente, no vetor swaps) em b
   for (unsigned int i = 0; i < n; i++) {
     if (swaps[i] != i)
       b[i] = temp[swaps[i]]; 
@@ -151,21 +158,24 @@ int invertMatrix(double **A, double **inverse, unsigned int n) {
   freeMatrix(identity, n, n);
   free(x);
   free(b);
+  free(swaps);
 
   return 1;
 }
 
+// Calcula R = A * A' - I e guarda em residual. Retorna 1 para sucesso e 0 para erro de alocação.
 int calculateResidual(double **A, double **inverse, double **residual, unsigned int n) {
   double **identity;
 
+  // Aloca e inicializa a matriz identidade
   identity = allocateMatrix(n, n);
   if (!identity) {
     printf("Não foi possível alocar memória.\n");
     return 0;
   }
-
   initializeIdentityMatrix(identity, n);
 
+  // Efetua a multiplicação e a subtração descritas
   multiplyMatrices(A, inverse, residual, n);
   subtractMatrices(residual, identity, residual, n);
 
@@ -175,6 +185,7 @@ int calculateResidual(double **A, double **inverse, double **residual, unsigned 
   return 1;
 }
 
+// Calcula a norma de um vetor (raiz da soma dos quadrados dos elementos)
 double columnNorm(double *residual, unsigned int n) {
   double sum = 0.0;
 
@@ -185,8 +196,9 @@ double columnNorm(double *residual, unsigned int n) {
   return sqrt(sum);
 }
 
+// Calcula a média das normas de cada coluna da matriz residual
 double averageNorms(double **residual, unsigned int n) {
-  double *column, average, sum = 0.0;
+  double *column, sum = 0.0;
 
   column = (double*) malloc(sizeof(double) * n);
   if (!column) {

@@ -1,3 +1,7 @@
+/*  Implementação de funções relacionadas a vetores e matrizes
+    Nathália Nogueira Alves - GRR20232349 - UFPR
+*/
+
 #include "estruturas.h"
 
 // Aloca uma matriz rows x columns 
@@ -59,12 +63,14 @@ void initializeIdentityMatrix(double **matrix, unsigned int n) {
   }
 }
 
+// Lê uma matriz rows x columns
 void readMatrix(double **matrix, unsigned int rows, unsigned int columns) {
   for (unsigned int i = 0; i < rows; i++)
     for (unsigned int j = 0; j < columns; j++)
       scanf("%le", &matrix[i][j]);
 }
 
+// Multiplica as matrizes A e B e guarda o resultado em result
 void multiplyMatrices(double **A, double **B, double **result, unsigned int n) {
   for (unsigned int i = 0; i < n; i++) {
     for (unsigned int j = 0; j < n; j++) {
@@ -76,6 +82,7 @@ void multiplyMatrices(double **A, double **B, double **result, unsigned int n) {
   }
 }
 
+// Calcula A - B e guarda em result
 void subtractMatrices(double **A, double **B, double **result, unsigned int n) {
   for (unsigned int i = 0; i < n; i++) {
     for (unsigned int j = 0; j < n; j++) {
